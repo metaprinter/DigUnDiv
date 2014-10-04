@@ -15,6 +15,8 @@
         Side: Side
     }
 
+    var dayItemTpl = $('#day-menu-tpl').html();
+
     var getToday = function() {
         return new Date(2014, 10, 14);
     }
@@ -48,7 +50,20 @@
     }
 
     var displayItem = function() {
-        console.log(arguments);
+        var args = [].slice.call(arguments);
+        var day = args[0];
+        var menu = args.slice(1);
+
+        var data = {};
+        data.day = day.toJSON();
+
+        for (var i = 0; i < menu.length; i++) {
+            data[menu[i][0].className] = menu[i][0].toJSON()
+        }
+
+        var html = Mustache.render(dayItemTpl, data)
+        console.log('data for menu container', data);
+        $('#menu-container').html(html);
     }
 
     var resolveItem = function(item) {
