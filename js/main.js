@@ -1,68 +1,96 @@
-Parse.initialize("znb8zXizkj3pOq0mfmG691tnN9HVIibaEXprXZlG", "ZgMZzfYVaWzIT4VuI2TRpMEXoZ4y9FM8dghX6tDJ");
 
-var MenuDay = Parse.Object.extend('MenuDay');
+(function() {
 
-var Entree = Parse.Object.extend('Entree');
-var Side = Parse.Object.extend('Side');
-var Veggie = Parse.Object.extend('Veggie');
+    Parse.initialize("znb8zXizkj3pOq0mfmG691tnN9HVIibaEXprXZlG", "ZgMZzfYVaWzIT4VuI2TRpMEXoZ4y9FM8dghX6tDJ");
 
-var menuData = [{"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "1", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "2", "side": ""}, {"entree": "Mozzarella Sticks w Marinara Sauce", "veggie": " Zucchini Coins", "month": "10", "year": "2014", "date": "3", "side": "Toasty Bread Stick"}, {"entree": "BBQ Pulled Turkey on a soft Roll", "veggie": "Black Bean Salsa", "month": "10", "year": "2014", "date": "4", "side": ""}, {"entree": "Philly Cheese Steak Sandwich", "veggie": "Wedge Cut Fries", "month": "10", "year": "2014", "date": "5", "side": "Cookie Treat"}, {"entree": "Creamy Ranch Grilled Chicken Sandwich", "veggie": "Sweet Potato Wedges", "month": "10", "year": "2014", "date": "6", "side": "Baked! Tostitos Scoops"}, {"entree": "Bagel Pizza w Grilled Chicken Topping", "veggie": "Green Garden Salad", "month": "10", "year": "2014", "date": "7", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "8", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "9", "side": ""}, {"entree": "Chicken Tenders Ranch Dipper ", "veggie": "Celery Sticks Crunchy Carrots", "month": "10", "year": "2014", "date": "10", "side": ""}, {"entree": "Cheese Burger Deluxe Toppings ", "veggie": "Baked French Fries", "month": "10", "year": "2014", "date": "11", "side": ""}, {"entree": "Cheese Ravioli w Marinara Sauce", "veggie": "Broccoli Trees", "month": "10", "year": "2014", "date": "12", "side": "Toasty Bread Stick"}, {"entree": "Roasted Chicken Manager's Choice Sauce served w Rice", "veggie": "Sweet Plantains Souper Beans", "month": "10", "year": "2014", "date": "13", "side": "Wild Cherry Fruit Juice Ice"}, {"entree": "Pizza Slice French Bread Pizza Garden Fresh Topping", "veggie": "Kid Friendly Kale Salad", "month": "10", "year": "2014", "date": "14", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "15", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "16", "side": ""}, {"entree": "Tuscan Crispy Chicken Sandwich w Creamy Garlic Sauce", "veggie": "Green Beans", "month": "10", "year": "2014", "date": "17", "side": "Strawberry Fruit Cup"}, {"entree": "Sloppy Joe Sandwich", "veggie": "Sweet Potato Wedges", "month": "10", "year": "2014", "date": "18", "side": ""}, {"entree": "Mozzarella Sticks ", "veggie": "Super Hero Spinach", "month": "10", "year": "2014", "date": "19", "side": ""}, {"entree": "Sliced Turkey", "veggie": "Orange Roasted Carrots Mashed Potatoes", "month": "10", "year": "2014", "date": "20", "side": "Warm Fruit Turnover"}, {"entree": "Pizza Slice Bagel Pizza Bacon or Sausage Topping", "veggie": "Green Garden Salad Chickpea Salad", "month": "10", "year": "2014", "date": "21", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "22", "side": ""}, {"entree": "", "veggie": "", "month": "10", "year": "2014", "date": "23", "side": ""}, {"entree": "Chicken Tenders BBQ Dipper ", "veggie": "Crunchy Carrots", "month": "10", "year": "2014", "date": "24", "side": ""}, {"entree": "Pizza Burger Falafel Wrap", "veggie": "Baked French Fries", "month": "10", "year": "2014", "date": "25", "side": ""}, {"entree": "Kung Pao Chicken w Steamed Rice", "veggie": "Crispy Egg Roll w Duck Sauce", "month": "10", "year": "2014", "date": "26", "side": "Chocolate Grahams"}, {"entree": "Grilled Chicken Sandwich", "veggie": "Sofrito Beans", "month": "10", "year": "2014", "date": "27", "side": ""}, {"entree": "Pizza Slice", "veggie": "Green Garden Salad", "month": "10", "year": "2014", "date": "28", "side": ""}];
+    var MenuDay = Parse.Object.extend('MenuDay');
+    var Entree = Parse.Object.extend('Entree');
+    var Veggie = Parse.Object.extend('Veggie');
+    var Side = Parse.Object.extend('Side');
 
-var entrees = {};
-var sides = {};
-var veggies = {};
+    var Classes = {
+        MenuDay: MenuDay,
+        Entree: Entree,
+        Veggie: Veggie,
+        Side: Side
+    }
 
-function getQueryPromise(t, value) {
-    console.log('value', t, value);
-    var query = new Parse.Query(t);
-    query.equalTo('menutext', value);
-    return query.find();
-}
+    var getToday = function() {
+        return new Date(2014, 10, 14);
+    }
 
-for (var i = 0; i < menuData.length; i++) {
+    var getQuery = function(item) {
+        var query = new Parse.Query(Classes[item.className]);
+        query.equalTo('objectId', item.id);
+        return query.find();
+    }
 
-    var mdo = new MenuDay();
+    var getRelations = function(item) {
+        var promises = [];
 
-    var md = menuData[i];
+        var e = item.get('entree');
+        if (e) {
+            promises.push(getQuery(e))
+        }
 
-    mdo.set('month', md['month']);
-    mdo.set('date', md['date']);
-    mdo.set('year', md['year']);
+        var s = item.get('side');
+        if (s) {
+            promises.push(getQuery(s))
+        }
 
+        var v = item.get('veggie');
+        if (v) {
+            promises.push(getQuery(v))
+        }
 
-    (function(md, mdo) {
+        return promises;
 
-        var promise = mdo.save();
-        promise.then(function(mdo) {
+    }
 
-            var entp = getQueryPromise('Entree', md['entree']);
-            var sidep = getQueryPromise('Side', md['side']);
-            var veggiep = getQueryPromise('Veggie', md['veggie']);
+    var displayItem = function() {
+        console.log(arguments);
+    }
 
-            var promise = Parse.Promise.when([entp, sidep, veggiep]);
+    var resolveItem = function(item) {
+        var promises = getRelations(item);
+        Parse.Promise.when(promises).then(function() {
+            displayItem.apply(this, [item].concat([].slice.call(arguments)));
+        });
+    }
 
-            promise.then(function(eRes, sRes, vRes) { 
+    var displayEmpty = function() {
+        console.log('None Found');
+    }
 
-                if (eRes.length) {
-                    mdo.set('entree', eRes[0]);
-                }
+    var displayItemOrEmpty = function(results) {
+        var item;
 
-                if (sRes.length) {
-                    mdo.set('side', sRes[0]);
-                }
+        if (results.length) {
+            item = results[0];
+        }
 
-                if (vRes.length) {
-                    mdo.set('veggie', vRes[0]);
-                }
+        if (item) {
+            resolveItem(item);
+        } else {
+            displayEmpty()
+        }
+    }
 
-                mdo.save();
+    var start = function() {
 
-                console.log('all finished', arguments)
-            })
+        var today = getToday();
+        var q = new Parse.Query('MenuDay');
 
-        })
+        console.log(today.getMonth(), today.getDate(), today.getFullYear());
+        q.equalTo('month', "" + today.getMonth());
+        q.equalTo('date', "" + today.getDate());
+        q.equalTo('year', "" + today.getFullYear());
+        q.find().then(displayItemOrEmpty);
+        
 
-    })(md, mdo)
+    }
 
+    start();
 
-}
+})()
+
