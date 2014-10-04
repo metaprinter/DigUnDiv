@@ -1,6 +1,5 @@
 Parse.initialize("znb8zXizkj3pOq0mfmG691tnN9HVIibaEXprXZlG", "ZgMZzfYVaWzIT4VuI2TRpMEXoZ4y9FM8dghX6tDJ");
 
-
 var MenuDay = Parse.Object.extend('MenuDay');
 
 var Entree = Parse.Object.extend('Entree');
@@ -13,47 +12,57 @@ var entrees = {};
 var sides = {};
 var veggies = {};
 
+function getQueryPromise(t, value) {
+    console.log('value', t, value);
+    var query = new Parse.Query(t);
+    query.equalTo('menutext', value);
+    return query.find();
+}
+
 for (var i = 0; i < menuData.length; i++) {
 
-        var md = new MenuDay();
+    var mdo = new MenuDay();
+
+    var md = menuData[i];
+
+    mdo.set('month', md['month']);
+    mdo.set('date', md['date']);
+    mdo.set('year', md['year']);
 
 
-        if (!menuData[i]) {
-            continue;
-        }
+    (function(md, mdo) {
 
-        var entreeData = menuData[i]['entree'];
-        var sideData = menuData[i]['side'];
-        var veggieData = menuData[i]['veggie'];
+        var promise = mdo.save();
+        promise.then(function(mdo) {
 
-        if (entreeData && !(entreeData in entrees)) {
-            console.log("new ed", entreeData);
-            var entree = new Entree();
-            entree.set('menutext', entreeData);
-            entree.save();
-            md.set('entree', entree.get('objectId'));
-            entrees[entreeData] = true;
-        }  
+            var entp = getQueryPromise('Entree', md['entree']);
+            var sidep = getQueryPromise('Side', md['side']);
+            var veggiep = getQueryPromise('Veggie', md['veggie']);
 
-        if (sideData && !(sideData in sides)) {
-            console.log("new sd", sideData);
-            var side = new Side();
-            side.set('menutext', sideData);
-            side.save();
-            md.set('side', side.get('objectId'));
-            sides[sideData] = true;
-        }  
+            var promise = Parse.Promise.when([entp, sidep, veggiep]);
 
-        if (veggieData && !(veggieData in veggies)) {
-            console.log("new vd", veggieData);
-            var veggie = new Veggie();
-            veggie.set('menutext', veggieData);
-            veggie.save();
-            md.set('veggie', .get('objectId'));
-            veggies[veggieData] = true;
-        }  
+            promise.then(function(eRes, sRes, vRes) { 
 
+                if (eRes.length) {
+                    mdo.set('entree', eRes[0]);
+                }
 
-        console.log('done');
+                if (sRes.length) {
+                    mdo.set('side', sRes[0]);
+                }
+
+                if (vRes.length) {
+                    mdo.set('veggie', vRes[0]);
+                }
+
+                mdo.save();
+
+                console.log('all finished', arguments)
+            })
+
+        })
+
+    })(md, mdo)
+
 
 }
