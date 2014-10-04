@@ -10,6 +10,7 @@
         <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
         <link rel="apple-touch-icon" href="/custom_icon.png">
         <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/star-rating.css" rel="stylesheet">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -52,6 +53,8 @@
 </div>
 <!-- /datetimepicker-->
 <div class="container">image</div>
+<div class="container"><input id="input-1" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="5"></div>
+
 <div class="container"><div>entree</div><div>side</div><div>vegetable</div></div>
         </div><!-- /.container -->
 
@@ -62,6 +65,7 @@
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/star-rating.js"></script>
         <script type="text/javascript">
             $(function () {
                 $('#startDate').datetimepicker();
