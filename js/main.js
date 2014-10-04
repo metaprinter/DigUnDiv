@@ -113,9 +113,9 @@
         }
     }
 
-    var start = function() {
+    var start = function(date) {
 
-        var today = getToday();
+        var today = date || getToday();
         var q = new Parse.Query('MenuDay');
 
         console.log(today.getMonth(), today.getDate(), today.getFullYear());
@@ -128,6 +128,10 @@
     }
 
     start();
+
+    window.refreshWithDate = function(date) {
+        start(date)
+    }
 
 })()
 
