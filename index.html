@@ -53,7 +53,6 @@
 </div>
 <!-- /datetimepicker-->
 
-<div class="container"><input id="input-1" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="5"></div>
 
 
 <div id="menu-container"></div>
@@ -61,16 +60,19 @@
 </div><!-- /.container -->
 
         <script id="day-menu-tpl" type="text/template">
-            <div class="container"><img src="{{}}"</div>
+            <div class="container">
+            </div>
             <div class="container">
                 <div>Entree: {{Entree.menutext}}</div>
+                <div class="container"><input data-class="Entree" data-object-id="{{Entree.objectId}}" id="entree-rating" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="{{Entree.rating}}"></div>
                 <div>Side: {{Side.menutext}}</div>
+                <div class="container"><input data-class="Side" id="side-rating" data-object-id="{{Side.objectId}}" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="{{Side.rating}}"></div>
                 <div>Vegetable: {{Veggie.menutext}}</div>
+                <div class="container"><input data-class="Veggie" id="veggie-rating" data-object-id="{{Veggies.objectId}}" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="{{Veggie.rating}}"></div>
             </div>
         </script>
 
-        <script id="picture" type="text/template">
-        </script>
+        <script id="picture" type="text/template"></script>
 
 
         <script src="js/jquery-2.1.1.min.js"></script>

@@ -64,6 +64,28 @@
         var html = Mustache.render(dayItemTpl, data)
         console.log('data for menu container', data);
         $('#menu-container').html(html);
+
+        doRatings();
+    }
+
+    var setRating = function(id, type, rating) {
+        var query = new Parse.Query(Classes[type]);
+        query.get(id, {
+            success: function(object) {
+                object.set('rating', rating);
+                object.save();
+            }
+        });
+    };
+
+    var handleRatings = function(e, rating) {
+        var id = $(this).data('object-id');
+        var type = $(this).data('class');
+        setRating(id, type, rating);
+    }
+
+    var doRatings = function() {
+        $(".rating").rating().on('rating.change', handleRatings);
     }
 
     var resolveItem = function(item) {
