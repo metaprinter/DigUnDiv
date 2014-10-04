@@ -15,12 +15,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
         .well {background-color:#ffbe47;border:none;}
+        .row .well .content {background-color:#ffffff;border:none;max-width:600px;}
         </style>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
-                <a class="navbar-brand">LunchTime</a>
+                <a class="navbar-brand">LunchTime NYC</a>
             </div>
         </div>
 
@@ -35,10 +36,12 @@
             </div>
           </div><!-- /.jumbotron -->
         <div class="container">
+
+                   
 <!-- -->
 <div class="container">
     <div class="col-sm-6" style="height:75px;">
-       <div class='col-md-5'>
+       <div class="col-md-6 col-md-offset-4">
             <div class="form-group">
                 <div>Pick another day.</div>
                 
@@ -56,13 +59,13 @@
 
 
 <div id="menu-container"></div>
-
 </div><!-- /.container -->
 
         <script id="day-menu-tpl" type="text/template">
             <div class="container">
             </div>
             <div class="container">
+              <div class="col-md-6 col-md-offset-4">
                 <div>Entree: {{Entree.menutext}}</div>
                 <div class="container"><input data-class="Entree" data-object-id="{{Entree.objectId}}" id="entree-rating" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="{{Entree.rating}}"></div>
                 {{#Side}}
@@ -71,6 +74,7 @@
                 {{/Side}}
                 <div>Vegetable: {{Veggie.menutext}}</div>
                 <div class="container"><input data-class="Veggie" id="veggie-rating" data-object-id="{{Veggie.objectId}}" class="rating" data-min="0" data-max="5" data-step="1" data-size="xs" value="{{Veggie.rating}}"></div>
+              </div>
             </div>
         </script>
 
