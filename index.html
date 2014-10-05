@@ -14,12 +14,16 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-        .well {background-color:#ffbe47;border:none;}
-        .containerBG {width: 100%;padding-left: 0; padding-right: 0;}
-        .jumbotron{padding-left: 0; padding-right: 0;}
+        .well {background-color:#FFBC5F;border:none;}
+        .containerBG {width:100%;padding-left:0;padding-right:0;}
+        .jumbotron{padding-left:0;padding-right:0;}
         .row .well .content {background-color:#ffffff;border:none;}
         </style>
     </head>
+<!-- This project is part of DigitalUndivided Hackathon 4 October 2014 
+**   Contributors: Justin Donato, Natasha Dykes, Robert Ivan.
+**   Not for commercial use! 
+-->    
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
@@ -28,7 +32,7 @@
         </div>
 
         <div class="jumbotron">
-          <div class="container">
+          <div class="container containerBG">
             <div class="row well well-lg">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="">
@@ -101,6 +105,7 @@
                     var dateparts = $(arguments[0].currentTarget).data('DateTimePicker').getDate()._i;
                     refreshWithDate(new Date(dateparts.y, dateparts.M, dateparts.d));
                 });
+                
             });
         </script>
         <script src="js/main.js"></script>
