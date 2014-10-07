@@ -1,3 +1,7 @@
+UPDATE:
+Our LunchTime app was selected as Best Designed App
+https://www.hackerleague.org/hackathons/global-mobile-hackathon/blogposts/54328a368365f05e3f000033
+
 This repo was used to collaborate on a hack for DigitalUndivided - Global Mobile Hackathon, 4 October 2014 and submitted to https://www.hackerleague.org/hackathons/digitalundivideds-global-mobile-hack
 
 Contributors: Justin Donato (parse and mustache), Natasha Dykes (design and artwork), Robert Ivan (concept and bootstrap).
