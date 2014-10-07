@@ -7,7 +7,7 @@ This repo was used to collaborate on a hack for DigitalUndivided - Global Mobile
 Contributors: Justin Donato (parse and mustache), Natasha Dykes (design and artwork), Robert Ivan (concept and bootstrap).
 
 High Level Overview:
-Get NYC Public School lunch menus out of their current, stagnant, pdf implementation and into a database so we can then do stuff with it like present the menus in a web application to enable voting, photo submissions, alergy alerts, nutrition info, even alerts and menus via Twillio.
+Get NYC Public School lunch menus out of their current, stagnant, pdf implementation and into a database so we can then do stuff with it like present the menus in a web application to enable voting, photo submissions, alergy alerts, nutrition info, even alerts and menus via Twilio.
 
 Submission:
 http://robertivan.com/nyc/
